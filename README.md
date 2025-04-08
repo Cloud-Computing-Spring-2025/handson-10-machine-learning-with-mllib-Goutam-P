@@ -1,12 +1,10 @@
-# handson-10-MachineLearning-with-MLlib.
+# Handson-10-MachineLearning-with-MLlib
 
-#  Customer Churn Prediction with MLlib
+# Customer Churn Prediction with MLlib
 
 This project uses Apache Spark MLlib to predict customer churn based on structured customer data. You will preprocess data, train classification models, perform feature selection, and tune hyperparameters using cross-validation.
 
 ---
-
-
 
 Build and compare machine learning models using PySpark to predict whether a customer will churn based on their service usage and subscription features.
 
@@ -22,7 +20,7 @@ The dataset used is `customer_churn.csv`, which includes features like:
 
 ##  Tasks
 
-### Task 1: Data Preprocessing and Feature Engineering
+###  Task 1: Data Preprocessing and Feature Engineering
 
 **Objective:**  
 Clean the dataset and prepare features for ML algorithms.
@@ -32,22 +30,19 @@ Clean the dataset and prepare features for ML algorithms.
 2. Encode categorical features using `StringIndexer` and `OneHotEncoder`.
 3. Assemble numeric and encoded features into a single feature vector with `VectorAssembler`.
 
-**Code Output:**
+**Code Output Example:**
+```
++--------------------+-----+
+|features            |label|
++--------------------+-----+
+|(15,[0,1,5,10,...]) |  0.0|
+|(15,[0,3,6,12,...]) |  1.0|
++--------------------+-----+
+```
 
-```
-+--------------------+-----------+
-|features            |ChurnIndex |
-+--------------------+-----------+
-|[0.0,12.0,29.85,29...|0.0        |
-|[0.0,1.0,56.95,56....|1.0        |
-|[1.0,5.0,53.85,108...|0.0        |
-|[0.0,2.0,42.30,184...|1.0        |
-|[0.0,8.0,70.70,151...|0.0        |
-+--------------------+-----------+
-```
 ---
 
-### Task 2: Train and Evaluate Logistic Regression Model
+###  Task 2: Train and Evaluate Logistic Regression Model
 
 **Objective:**  
 Train a logistic regression model and evaluate it using AUC (Area Under ROC Curve).
@@ -57,9 +52,9 @@ Train a logistic regression model and evaluate it using AUC (Area Under ROC Curv
 2. Train a logistic regression model.
 3. Use `BinaryClassificationEvaluator` to evaluate.
 
-**Code Output Example:**
+**Code Output:**
 ```
-Logistic Regression Model Accuracy: 0.83
+ Logistic Regression AUC: 0.7531
 ```
 
 ---
@@ -71,25 +66,16 @@ Select the top 5 most important features using Chi-Square feature selection.
 
 **Steps:**
 1. Use `ChiSqSelector` to rank and select top 5 features.
-2. Print the selected feature vectors.
+2. Save the selected feature vectors.
 
-**Code Output Example:**
+**Saved Output:**
 ```
-+--------------------+-----------+
-|selectedFeatures    |ChurnIndex |
-+--------------------+-----------+
-|[0.0,29.85,0.0,0.0...|0.0        |
-|[1.0,56.95,1.0,0.0...|1.0        |
-|[0.0,53.85,0.0,1.0...|0.0        |
-|[1.0,42.30,0.0,0.0...|1.0        |
-|[0.0,70.70,0.0,1.0...|0.0        |
-+--------------------+-----------+
-
+ output/chi_square_selected_features.csv
 ```
 
 ---
 
-### Task 4: Hyperparameter Tuning and Model Comparison
+###  Task 4: Hyperparameter Tuning and Model Comparison
 
 **Objective:**  
 Use CrossValidator to tune models and compare their AUC performance.
@@ -107,25 +93,25 @@ Use CrossValidator to tune models and compare their AUC performance.
 
 **Code Output Example:**
 ```
-Tuning LogisticRegression...
-LogisticRegression Best Model Accuracy (AUC): 0.84
-Best Params for LogisticRegression: regParam=0.01, maxIter=20
+ Tuning Logistic Regression...
+ Logistic Regression Best AUC: 0.7575
 
-Tuning DecisionTree...
-DecisionTree Best Model Accuracy (AUC): 0.77
-Best Params for DecisionTree: maxDepth=10
+ Tuning Decision Tree...
+ Decision Tree Best AUC: 0.7187
 
-Tuning RandomForest...
-RandomForest Best Model Accuracy (AUC): 0.86
-Best Params for RandomForest: maxDepth=15
-numTrees=50
+ Tuning Random Forest...
+ Random Forest Best AUC: 0.8311
 
-Tuning GBT...
-GBT Best Model Accuracy (AUC): 0.88
-Best Params for GBT: maxDepth=10
-maxIter=20
-
+ Tuning Gradient Boosted Trees...
+ GBT Best AUC: 0.7672
 ```
+
+**Saved Output:**
+```
+ output/model_auc_results.csv
+ output/final_predictions.csv
+```
+
 ---
 
 ##  Execution Instructions
@@ -133,19 +119,18 @@ maxIter=20
 ### 1. Prerequisites
 
 - Apache Spark installed
-- Python environment with `pyspark` installed
+- Python environment with `pyspark` and `pandas` installed
 - `customer_churn.csv` placed in the project directory
 
 ### 2. Run the Project
 
-### 2. Run the Pr
-
 ```bash
-spark-submit churn_prediction.py
+# Install pyspark and pandas if not installed
+pip install pyspark pandas
+
+# Run the script with spark-submit
+spark-submit customer_churn_analysis.py
 ```
-### Make sure to include your original ouput and explain the code
-
-
 
 **OUTPUT**
 
